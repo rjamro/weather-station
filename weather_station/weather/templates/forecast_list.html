@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <h1>5 day forecast</h1>
+
+<div class='row'>
+    {% for day in forecast.consolidated_weather %}
+        <div class='col-sm-3 col-sm-3 mx-auto'>
+            <div class="card text-center">
+                <div class="card-header">
+                    {{ day.applicable_date }}
+                </div>
+                <img src="{{ icon_url }}{{ day.weather_state_abbr }}.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ day.weather_state_name }}</h5>
+                    <p class="card-text">{{ day.the_temp }} &ordm;C</p>
+                <a href="#" class="btn btn-primary">Details</a>
+                </div>
+                <div class="card-footer text-muted">
+                    2 days ago
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock content %}

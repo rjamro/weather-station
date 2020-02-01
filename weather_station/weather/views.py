@@ -1,11 +1,24 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseServerError
 from django.urls import reverse
 from .forms import CoordinateForm, CityForm
-
+from .forecast import ForecastDataProvider, MetaWeatherDataProvider
+from rest_framework.serializers import ValidationError
 # Create your views here.
 
+data_provider = ForecastDataProvider(MetaWeatherDataProvider())
+
 def get_forecast(request, city_id):
-    context = {}
+    try:
+        forecast = data_provider.getForecastData(city_id=city_id)
+    except ValidationError:
+        return render(request, "forecast_validation_error.html")
+
+    icon_url = data_provider.getWeatherIconPath()
+    context = {
+        "forecast": forecast,
+        "icon_url": icon_url
+    }
     return render(request, "forecast_list.html", context=context)
 
 def get_forecast_detail(request):
@@ -40,12 +53,17 @@ def get_forecast_search(request):
 def get_cities_by_coordinate(request):
     lattitude = request.GET.get("lattitude", 0.0)
     longitude = request.GET.get("longitude", 0.0)
-    context = {}
+    cities = data_provider.getCitiesByCoordinates(
+        lattitude=lattitude, 
+        longitude=longitude
+    )
+    context = {"cities": cities}
     return render(request, 'forecast_cities.html', context=context)
 
 def get_cities_by_query(request):
-    query = request.GET.get("query", "Not specified")
-    context = {}
+    query = request.GET.get("text", "Not specified")
+    cities = data_provider.getCitiesByQuery(query=query)
+    context = {"cities": cities}
     return render(request, 'forecast_cities.html', context=context)
 
 

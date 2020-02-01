@@ -3,6 +3,6 @@
 {% block content %}
 <h1>Cities</h1>
 {% for city in cities %}
-    <p><a href="../forecast/{{ city.id }}">{{ city.name }}</a></p>
+    <p><a href="../forecast/{{ city.woeid }}">{{ city.title }}</a></p>
 {% endfor %}
 {% endblock content %}
