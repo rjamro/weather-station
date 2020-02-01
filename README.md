@@ -4,7 +4,7 @@ In order to run django server it is preffered to use either docker image or virt
 
 Docker image:
 1. Execute the following docker command to create local image based on a DockerFile: docker build -t weather-station .
-2. Execute the docker command to run previously created docker image: docker run -it --rm -p 8000:8000 weather-station
+2. Execute the docker command to run previously created docker image replacing SECRET_KEY environment variable with your own: docker run -it --rm -p 8000:8000 -e SECRET_KEY={your_secret_key} weather-station
 3. Open your brower and paste the following line: http://127.0.0.1:8000/ 
 
 Virtual environment using pipenv module:

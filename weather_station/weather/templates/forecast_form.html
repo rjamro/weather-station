@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Choose location</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ coordinate_form }}
+    <input type="submit" name="coordinate_form" value="Submit">
+</form>
+
+<form method="post">
+    {% csrf_token %}
+    {{ city_form }}
+    <input type="submit" name="city_form" value="Submit">
+</form>
+{% endblock content %}
