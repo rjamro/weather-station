@@ -19,6 +19,21 @@ class DaySerializer(serializers.Serializer):
     def validate_the_temp(self, value):
         return round(value, 1)
 
+    def validate_min_temp(self, value):
+        return round(value, 1)
+
+    def validate_max_temp(self, value):
+        return round(value, 1)
+
+    def validate_max_temp(self, value):
+        return round(value, 1)
+
+    def validate_wind_speed(self, value):
+        return round(value, 1)
+
+    def validate_air_pressure(self, value):
+        return round(value, 1)
+
 class ForecastSerializer(serializers.Serializer):
     consolidated_weather = DaySerializer(many=True)
     time = serializers.CharField(max_length=100)

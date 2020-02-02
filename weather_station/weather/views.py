@@ -51,18 +51,26 @@ def get_forecast_search(request):
         return render(request, "forecast_form.html", context=context)
 
 def get_cities_by_coordinate(request):
-    lattitude = request.GET.get("lattitude", 0.0)
-    longitude = request.GET.get("longitude", 0.0)
-    cities = data_provider.getCitiesByCoordinates(
-        lattitude=lattitude, 
-        longitude=longitude
-    )
+    lattitude = request.GET.get("latt", 0.0)
+    longitude = request.GET.get("long", 0.0)
+    try:
+        cities = data_provider.getCitiesByCoordinates(
+            lattitude=lattitude, 
+            longitude=longitude
+        )
+    except ValidationError:
+        return render(request, "forecast_validation_error.html")
+        
     context = {"cities": cities}
     return render(request, 'forecast_cities.html', context=context)
 
 def get_cities_by_query(request):
     query = request.GET.get("text", "Not specified")
-    cities = data_provider.getCitiesByQuery(query=query)
+    try:
+        cities = data_provider.getCitiesByQuery(query=query)
+    except ValidationError:
+        return render(request, "forecast_validation_error.html")
+
     context = {"cities": cities}
     return render(request, 'forecast_cities.html', context=context)
 

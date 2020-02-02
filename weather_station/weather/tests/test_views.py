@@ -46,6 +46,11 @@ class WeatherViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_forecastview_uses_correct_template(self):
-        response = self.client.get('/weather/forecast/1')
+        response = self.client.get('/weather/forecast/906057')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'forecast_list.html')
+
+    def test_forecastview_uses_correct_template_if_validation_failed(self):
+        response = self.client.get('/weather/forecast/1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'forecast_validation_error.html')

@@ -38,4 +38,4 @@ class MetaWeatherDataProvider(object):
             else:
                 raise serializers.ValidationError("Data is not compatible with the serializer.")
         else:
-            raise 
+            raise serializers.ValidationError(f"Wrong status code: {response.status_code}")
