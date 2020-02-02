@@ -1,16 +1,28 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <h1>Choose location</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ coordinate_form }}
-    <input type="submit" name="coordinate_form" value="Submit">
-</form>
-
-<form method="post">
-    {% csrf_token %}
-    {{ city_form }}
-    <input type="submit" name="city_form" value="Submit">
-</form>
+<ul class="list-group">
+    <li class="list-group-item">
+        <h3>Geographical coordinates</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ coordinate_form|crispy }}
+                <input type="submit" class="btn btn-primary" name="coordinate_form" value="Submit">
+            </div>
+        </form>
+    </li>
+    <li class="list-group-item">
+        <h3>Query</h3>
+        <form method="post">
+            <div class="form-group">
+                {% csrf_token %}
+                {{ city_form|crispy }}
+                <input type="submit" class="btn btn-primary" name="city_form" value="Submit">
+            </div>
+        </form>
+    </li>
+  </ul>
+    
 {% endblock content %}
