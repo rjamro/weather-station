@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Forecast</h1>
+
+<div class='row'>
+    {% for day in forecast.consolidated_weather %}
+        <div class='col-sm-4 col-sm-4 mx-auto'>
+            <div class="card text-center">
+                <div class="card-header">
+                    {{ day.applicable_date }}
+                </div>
+                <img src="{{ icon_url }}{{ day.weather_state_abbr }}.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ day.weather_state_name }}</h5>
+                    <p class="card-text">Min: {{ day.min_temp }} &ordm;C</p>
+                    <p class="card-text">Max: {{ day.max_temp }} &ordm;C</p>
+                    <p class="card-text">Pressure: {{ day.air_pressure }} mbar</p>
+                    <p class="card-text">Wind: {{ day.wind_speed }} mph</p>
+                <!-- <a href="#" class="btn btn-primary">Details</a> -->
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}
