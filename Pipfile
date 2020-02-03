@@ -10,6 +10,7 @@ django = "*"
 django-crispy-forms = "*"
 djangorestframework = "*"
 requests = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.7"
