@@ -10,11 +10,11 @@ data_provider = ForecastDataProvider(MetaWeatherDataProvider())
 
 def get_forecast(request, city_id):
     try:
-        forecast = data_provider.getForecastData(city_id=city_id)
+        forecast = data_provider.get_forecast_data(city_id=city_id)
     except ValidationError:
         return render(request, "forecast_validation_error.html")
 
-    icon_url = data_provider.getWeatherIconPath()
+    icon_url = data_provider.get_weather_icon_path()
     context = {
         "forecast": forecast,
         "icon_url": icon_url
@@ -54,7 +54,7 @@ def get_cities_by_coordinate(request):
     lattitude = request.GET.get("latt", 0.0)
     longitude = request.GET.get("long", 0.0)
     try:
-        cities = data_provider.getCitiesByCoordinates(
+        cities = data_provider.get_cities_by_coordinates(
             lattitude=lattitude, 
             longitude=longitude
         )
@@ -67,7 +67,7 @@ def get_cities_by_coordinate(request):
 def get_cities_by_query(request):
     query = request.GET.get("text", "Not specified")
     try:
-        cities = data_provider.getCitiesByQuery(query=query)
+        cities = data_provider.get_cities_by_query(query=query)
     except ValidationError:
         return render(request, "forecast_validation_error.html")
 
